@@ -18,10 +18,11 @@ use Illuminate\Support\Facades\Route;
 //  Public Routes
 Route::post('/login', [UserController::class, 'login']);
 
+Route::resource('users', UserController::class);
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
-    Route::resource('users', UserController::class);
+    // Route::resource('users', UserController::class);
     Route::post('/archive/{id}', [UserController::class, 'archive']);
     Route::post('/search/', [UserController::class, 'search']);
     Route::post('/change-password/{id}', [UserController::class, 'change_password']);
