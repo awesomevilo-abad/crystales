@@ -26,7 +26,7 @@ Route::post('/login', [UserController::class, 'login']);
 
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
-//
+// 
     // USER
     Route::resource('users', UserController::class);
     Route::post('users/archive/{id}', [UserController::class, 'archive']);
@@ -68,4 +68,4 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::middleware('auth:api')->get('/user', function (Request $request) {
         return $request->user();
     });
-// });
+});
