@@ -421,11 +421,7 @@ class UserController extends Controller
             })
             ->get();
 
-        if (!$result) {
-            return [
-                'error_message' => 'Data Not Found',
-            ];
-        }
+
 
         return $result;
 
