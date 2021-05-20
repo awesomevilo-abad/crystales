@@ -64,7 +64,7 @@ class DocumentController extends Controller
             ]));
 
         }
-        return $document_categories;
+        print_r($document_categories);
 
     }
 

@@ -50,21 +50,13 @@ class DocumentController extends Controller
                 ->get();
 
             $document_details_array = $document_details->toArray();
-            $document_details_array_id = $document_details_array[0]->id;
-            $document_details_array_document_type = $document_details_array[0]->document_type;
-            $document_details_array_document_description = $document_details_array[0]->document_description;
-            $document_details_array_document_is_active = $document_details_array[0]->is_active;
-
-            array_push($document_categories, array([
-                "document_id" => $document_details_array_id
-                , "document_type" => $document_details_array_document_type
-                , "document_description" => $document_details_array_document_description
-                , "is_active" => $document_details_array_document_is_active
-                , "categories" => $cat_id,
-            ]));
+            // array_push($document_categories, array("categories" => $cat_id,"document_id"=>));
+            echo ($$document_details_array[0]->id);
+            // $document_details_array['categories'] = $cat_id;
+            // array_merge($document_categories, $document_details_array);
 
         }
-        return $document_categories;
+        // print_r($document_categories);
 
     }
 

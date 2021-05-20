@@ -58,13 +58,12 @@ class DocumentController extends Controller
             array_push($document_categories, array([
                 "document_id" => $document_details_array_id
                 , "document_type" => $document_details_array_document_type
-                , "document_description" => $document_details_array_document_description
-                , "is_active" => $document_details_array_document_is_active
-                , "categories" => $cat_id,
+                , "document_description" => $document_description
+                , "is_active" => $is_active,
             ]));
 
         }
-        return $document_categories;
+        print_r($document_categories);
 
     }
 
