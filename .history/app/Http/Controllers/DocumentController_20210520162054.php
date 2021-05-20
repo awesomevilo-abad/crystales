@@ -39,7 +39,7 @@ class DocumentController extends Controller
         }
 
         $document_categories = [];
-        // $document_categories2 = [];
+        $document_categories2 = [];
         foreach ($category_ids as $specific_document) {
             $doc_id = $specific_document['doc_id'];
             $cat_id = $specific_document['cat_id'];
@@ -57,11 +57,11 @@ class DocumentController extends Controller
             // array_push($stack, array('d', 'e', 'f'));
             // print_r($stack);
 
-            // array_push($document_details, array("categories" => $cat_id));
-            print_r($document_details);
-
+            array_push($document_categories, array("categories" => $cat_id));
             // array_push($document_categories2, $document_details);
         }
+        return $document_categories2;
+
     }
 
     /**

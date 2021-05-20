@@ -57,9 +57,9 @@ class DocumentController extends Controller
             // array_push($stack, array('d', 'e', 'f'));
             // print_r($stack);
 
-            // array_push($document_details, array("categories" => $cat_id));
-            print_r($document_details);
-
+            array_push($document_categories, array("categories" => $cat_id));
+            return $document_categories;
+gitz
             // array_push($document_categories2, $document_details);
         }
     }
