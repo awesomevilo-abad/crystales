@@ -418,26 +418,7 @@ class UserController extends Controller
             ->where('username', '=', $username)
             ->get();
 
-        if ($result->isEmpty()) {
-            return [
-                'error_message' => 'Data Not Found',
-            ];
-        }
-
-        return $result;
-
-    }
-
-    public function id_validation(Request $request)
-    {
-        // $id_prefix = $request->get('id_prefix');
-        $id_no = $request->get('id_no');
-
-        $result = DB::table('users')
-            ->where('id_no', '=', $id_no)
-            ->get();
-
-        if ($result->isEmpty()) {
+        if (!$result) {
             return [
                 'error_message' => 'Data Not Found',
             ];

@@ -31,7 +31,6 @@ Route::post('/login', [UserController::class, 'login']);
 //
 // USER
 Route::get('users/username-validation', [UserController::class, 'username_validation']);
-Route::get('users/id-validation', [UserController::class, 'id_validation']);
 Route::resource('users', UserController::class);
 Route::post('users/archive/{id}', [UserController::class, 'archive']);
 Route::post('users/search/', [UserController::class, 'search']);

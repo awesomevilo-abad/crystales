@@ -418,7 +418,7 @@ class UserController extends Controller
             ->where('username', '=', $username)
             ->get();
 
-        if ($result->isEmpty()) {
+        if (!$result) {
             return [
                 'error_message' => 'Data Not Found',
             ];
@@ -428,16 +428,17 @@ class UserController extends Controller
 
     }
 
-    public function id_validation(Request $request)
+    public function username_validation(Request $request)
     {
+        $username = $request->get('username');
         // $id_prefix = $request->get('id_prefix');
-        $id_no = $request->get('id_no');
+        // $id_no = $request->get('id_no');
 
         $result = DB::table('users')
-            ->where('id_no', '=', $id_no)
+            ->where('username', '=', $username)
             ->get();
 
-        if ($result->isEmpty()) {
+        if (!$result) {
             return [
                 'error_message' => 'Data Not Found',
             ];

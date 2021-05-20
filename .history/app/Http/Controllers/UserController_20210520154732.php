@@ -418,11 +418,12 @@ class UserController extends Controller
             ->where('username', '=', $username)
             ->get();
 
-        if ($result->isEmpty()) {
-            return [
-                'error_message' => 'Data Not Found',
-            ];
-        }
+
+            if ($result->isEmpty()) {
+                return [
+                    'error_message' => 'Data Not Found',
+                ];
+            }
 
         return $result;
 
