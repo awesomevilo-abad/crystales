@@ -417,7 +417,8 @@ class UserController extends Controller
         $result = DB::table('users')
             ->where('username', $username)
             ->orWhere(function ($query) {
-                $query->where('id_prefix', $id_no);
+                $query
+                    ->where('id_prefix', $id_no);
             })
             ->get();
 
