@@ -411,8 +411,8 @@ class UserController extends Controller
     public function username_validation(Request $request)
     {
         $username = $request->get('username');
-        // $id_prefix = $request->get('id_prefix');
-        // $id_no = $request->get('id_no');
+        $id_prefix = $request->get('id_prefix');
+        $id_no = $request->get('id_no');
 
         $result = DB::table('users')
             ->where('username', $username)
