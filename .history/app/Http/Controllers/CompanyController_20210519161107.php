@@ -68,12 +68,9 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        $result = Company::find($id);
+        $result =  Company::find($id);
 
-        if (empty($result)) {
-            return "Not Found";
-        }
-        return $result;
+        if($result->isEmpty())
     }
 
     /**

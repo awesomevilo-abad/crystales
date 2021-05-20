@@ -70,7 +70,7 @@ class CompanyController extends Controller
     {
         $result = Company::find($id);
 
-        if (empty($result)) {
+        if empty($result) {
             return "Not Found";
         }
         return $result;

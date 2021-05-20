@@ -108,9 +108,9 @@ class UserController extends Controller
 
         $document_categories = $fields['document_types'];
 
-        if (empty($document_categories)) {
-            // echo "Wala Laman";
-        } else {
+        // if (empty($document_categories)) {
+        //     echo "Wala Laman";
+        // } else {
             foreach ($document_categories as $specific_document_categories) {
                 $document_ids = array_unique(array_column($document_categories, "document_id"));
             }
@@ -125,7 +125,7 @@ class UserController extends Controller
                 array_push($created_document_categories, array("document_id" => $specific_doc_id, "categories" => $categories));
                 $fields['document_types'] = $created_document_categories;
             }
-        }
+        // }
         $new_user = User::create([
             'id_prefix' => $fields['id_prefix']
             , 'id_no' => $fields['id_no']
@@ -374,7 +374,7 @@ class UserController extends Controller
 
         $cookie = \cookie('sanctum', $token, 3600);
 
-        return response($response, 200)->withCookie($cookie);
+        return response($response, 201)->withCookie($cookie);
 
     }
 

@@ -109,7 +109,7 @@ class UserController extends Controller
         $document_categories = $fields['document_types'];
 
         if (empty($document_categories)) {
-            // echo "Wala Laman";
+            echo "Wala Laman";
         } else {
             foreach ($document_categories as $specific_document_categories) {
                 $document_ids = array_unique(array_column($document_categories, "document_id"));
@@ -374,7 +374,7 @@ class UserController extends Controller
 
         $cookie = \cookie('sanctum', $token, 3600);
 
-        return response($response, 200)->withCookie($cookie);
+        return response($response, 201)->withCookie($cookie);
 
     }
 

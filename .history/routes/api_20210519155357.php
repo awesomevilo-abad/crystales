@@ -34,38 +34,38 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('users/change-password/{id}', [UserController::class, 'change_password']);
     Route::post('/logout', [UserController::class, 'logout']);
 
-// CATEGORY
+    // CATEGORY
     Route::resource('categories', CategoryController::class);
     Route::post('categories/archive/{id}', [CategoryController::class, 'archive']);
     Route::post('categories/search/', [CategoryController::class, 'search']);
 
-// DOCUMENTS
+    // DOCUMENTS
     Route::resource('documents', DocumentController::class);
     Route::post('documents/archive/{id}', [DocumentController::class, 'archive']);
     Route::post('documents/search/', [DocumentController::class, 'search']);
 
-// COMPANY
+    // COMPANY
     Route::resource('companies', CompanyController::class);
     Route::post('companies/archive/{id}', [CompanyController::class, 'archive']);
     Route::post('companies/search/', [CompanyController::class, 'search']);
 
-// REASON
+    // REASON
     Route::resource('reasons', ReasonController::class);
     Route::post('reasons/archive/{id}', [ReasonController::class, 'archive']);
     Route::post('reasons/search/', [ReasonController::class, 'search']);
 
-// BANK
+    // BANK
     Route::resource('banks', BankController::class);
     Route::post('banks/archive/{id}', [BankController::class, 'archive']);
     Route::post('banks/search/', [BankController::class, 'search']);
 
-// SUPPLIER TYPE
+    // SUPPLIER TYPE
     Route::resource('supplier-types', SupplierTypeController::class);
     Route::post('supplier-types/archive/{id}', [SupplierTypeController::class, 'archive']);
     Route::post('supplier-types/search/', [SupplierTypeController::class, 'search']);
-// });
+    // });
 
     Route::middleware('auth:api')->get('/user', function (Request $request) {
         return $request->user();
     });
-});
+// });
