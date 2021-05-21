@@ -184,8 +184,8 @@ class DocumentController extends Controller
                 ->get();
 
             // dd($cat_id);
-            // $document_details['categories'] = $cat_id;
-            // array_push($document_categories, $document_details);
+            $document_details['categories'] = $cat_id;
+            array_push($document_categories, $document_details);
 
             $document_details_array = $document_details->toArray();
             $document_details_array_id = $document_details_array[0]->id;
