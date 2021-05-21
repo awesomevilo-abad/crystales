@@ -196,7 +196,7 @@ class CategoryController extends Controller
     {
         $categories = DB::table('categories')
             ->where('is_active', '=', 1)
-            ->get();
+            ->paginate(10);
 
         if (!$categories || $categories->isEmpty()) {
             return [

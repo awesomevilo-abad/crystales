@@ -39,7 +39,7 @@ Route::post('users/change-password/{id}', [UserController::class, 'change_passwo
 Route::post('/logout', [UserController::class, 'logout']);
 
 // CATEGORY
-Route::get('categories/all/', [CategoryController::class, 'categories']);
+Route::get('categories/search/', [CategoryController::class, 'search']);
 Route::resource('categories', CategoryController::class);
 Route::post('categories/archive/{id}', [CategoryController::class, 'archive']);
 Route::post('categories/search/', [CategoryController::class, 'search']);
