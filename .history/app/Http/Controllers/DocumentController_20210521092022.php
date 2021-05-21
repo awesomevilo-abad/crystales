@@ -168,11 +168,11 @@ class DocumentController extends Controller
             ->where('d.id', '=', $id)
             ->get();
 
-        // if ($result->isEmpty()) {
-        //     return [
-        //         'error_message' => 'Data Not Found',
-        //     ];
-        // }
+        if ($result->isEmpty()) {
+            return [
+                'error_message' => 'Data Not Found',
+            ];
+        }
 
         $category_ids->push(['doc_id' => $id, 'cat_id' => $result->pluck('categories')]);
 
