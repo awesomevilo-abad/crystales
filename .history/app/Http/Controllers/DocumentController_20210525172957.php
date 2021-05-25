@@ -368,7 +368,7 @@ class DocumentController extends Controller
         ]);
     }
 
-    public function documents(Request $request){
+    public function documents(){
         $is_active = $request->get('is_active');
 
         if ($is_active == 'active') {

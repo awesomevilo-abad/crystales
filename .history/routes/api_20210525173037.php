@@ -45,7 +45,7 @@ Route::post('categories/archive/{id}', [CategoryController::class, 'archive']);
 Route::post('categories/search/', [CategoryController::class, 'search']);
 
 // DOCUMENTS
-Route::get('documents/all/', [DocumentController::class, 'documents']);
+Route::get('documents/all/', [CategoryController::class, 'documents']);
 Route::resource('documents', DocumentController::class);
 Route::post('documents/archive/{id}', [DocumentController::class, 'archive']);
 Route::post('documents/search/', [DocumentController::class, 'search']);
