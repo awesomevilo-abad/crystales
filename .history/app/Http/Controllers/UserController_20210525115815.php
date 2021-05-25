@@ -216,6 +216,22 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $fields = $request->validate([
+            'id_prefix' => ['string|required', $id]
+            , 'id_no' => ['required', $id]
+            , 'role' => 'required|string'
+            , 'first_name' => ['string|required', $id]
+            , 'middle_name' => ['string|required', $id]
+            , 'last_name' => ['string|required', $id]
+            , 'suffix' => ['nullable', $id]
+            , 'department' => 'required|string'
+            , 'position' => 'required|string'
+            , 'permissions' => 'required'
+            , 'document_types' => 'nullable'
+            , 'username' => ['string|required', $id]
+            , 'password' => ['required|string|confirmed', $id]
+            , 'is_active' => 'required',
+        ]);
 
         $specific_user = User::find($id);
 
@@ -231,22 +247,22 @@ class UserController extends Controller
         $document = [];
         $document_types_transformed = [];
 
-        // $document_categories = $request['document_types'];
+        $document_categories = $request['document_types'];
 
-        // foreach ($document_categories as $specific_document_categories) {
-        //     $document_ids = array_unique(array_column($document_categories, "document_id"));
-        // }
-        // foreach ($document_ids as $specific_doc_id) {
-        //     $categories = [];
+        foreach ($document_categories as $specific_document_categories) {
+            $document_ids = array_unique(array_column($document_categories, "document_id"));
+        }
+        foreach ($document_ids as $specific_doc_id) {
+            $categories = [];
 
-        //     foreach ($document_categories as $doc_category_id) {
-        //         if ($specific_doc_id == $doc_category_id["document_id"]) {
-        //             array_push($categories, $doc_category_id["category_id"]);
-        //         }
-        //     }
-        //     array_push($created_document_categories, array("document_id" => $specific_doc_id, "categories" => $categories));
-        //     $request['document_types'] = $created_document_categories;
-        // }
+            foreach ($document_categories as $doc_category_id) {
+                if ($specific_doc_id == $doc_category_id["document_id"]) {
+                    array_push($categories, $doc_category_id["category_id"]);
+                }
+            }
+            array_push($created_document_categories, array("document_id" => $specific_doc_id, "categories" => $categories));
+            $request['document_types'] = $created_document_categories;
+        }
 
         $specific_user->id_prefix = $request->get('id_prefix');
         $specific_user->id_no = $request->get('id_no');
