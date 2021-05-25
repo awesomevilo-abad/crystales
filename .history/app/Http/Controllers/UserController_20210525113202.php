@@ -216,6 +216,22 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $fields = $request->validate([
+            'id_prefix' => ['string|required', $id]
+            , 'id_no' => ['required', $id]
+            , 'role' => 'required|string'
+            , 'first_name' => ['string|required',$id]
+            , 'middle_name' => ['string|required',$id]
+            , 'last_name' => ['string|required',$id]
+            , 'suffix' => ['string|required',$id]
+            , 'department' => 'required|string'
+            , 'position' => 'required|string'
+            , 'permissions' => 'required'
+            , 'document_types' => 'nullable'
+            , 'username' => 'required|string'
+            , 'password' => 'required|string|confirmed'
+            , 'is_active' => 'required',
+        ]);
 
         $specific_user = User::find($id);
 
