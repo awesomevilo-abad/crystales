@@ -303,22 +303,24 @@ class DocumentController extends Controller
     {
         $specific_document = Document::find($id);
 
-        if (!$specific_document) {
-            return [
-                'error_message' => 'Data Not Found',
-            ];
-        }
+        $document_category_details = DB::table('document_categories')
+            ->where('document_id', '=', $id)
+            ->get();
+
+        return ($document_category_details);
+
+        // if (!$specific_document) {
+        //     return [
+        //         'error_message' => 'Data Not Found',
+        //     ];
+        // }
 
         $specific_document->is_active = 0;
         $specific_document->save();
 
-        $specific_document_category_details = DB::table('document_categories')
-            ->where('document_id', '=', $id)
-            ->update(['is_active' => 0]);
-
-        return [
-            'success_message' => 'Succesfully Archived!',
-        ];
+        // return [
+        //     'success_message' => 'Succesfully Archived!',
+        // ];
 
     }
 

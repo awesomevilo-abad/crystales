@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use App\Models\DocumentCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -301,24 +302,26 @@ class DocumentController extends Controller
      */
     public function archive(Request $request, $id)
     {
-        $specific_document = Document::find($id);
+        // $specific_document = Document::find($id);
+        
+        $document_category_details = DB::table('document_categories')
+        ->get();
 
-        if (!$specific_document) {
-            return [
-                'error_message' => 'Data Not Found',
-            ];
-        }
+        print_r($specific_document_category );
+        
 
-        $specific_document->is_active = 0;
-        $specific_document->save();
+        // if (!$specific_document) {
+        //     return [
+        //         'error_message' => 'Data Not Found',
+        //     ];
+        // }
 
-        $specific_document_category_details = DB::table('document_categories')
-            ->where('document_id', '=', $id)
-            ->update(['is_active' => 0]);
+        // $specific_document->is_active = 0;
+        // $specific_document->save();
 
-        return [
-            'success_message' => 'Succesfully Archived!',
-        ];
+        // return [
+        //     'success_message' => 'Succesfully Archived!',
+        // ];
 
     }
 
@@ -372,8 +375,7 @@ class DocumentController extends Controller
         ]);
     }
 
-    public function documents(Request $request)
-    {
+    public function documents(Request $request){
         $is_active = $request->get('is_active');
 
         if ($is_active == 'active') {

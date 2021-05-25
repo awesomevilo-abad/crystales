@@ -302,6 +302,7 @@ class DocumentController extends Controller
     public function archive(Request $request, $id)
     {
         $specific_document = Document::find($id);
+        
 
         if (!$specific_document) {
             return [
@@ -311,10 +312,6 @@ class DocumentController extends Controller
 
         $specific_document->is_active = 0;
         $specific_document->save();
-
-        $specific_document_category_details = DB::table('document_categories')
-            ->where('document_id', '=', $id)
-            ->update(['is_active' => 0]);
 
         return [
             'success_message' => 'Succesfully Archived!',
@@ -372,8 +369,7 @@ class DocumentController extends Controller
         ]);
     }
 
-    public function documents(Request $request)
-    {
+    public function documents(Request $request){
         $is_active = $request->get('is_active');
 
         if ($is_active == 'active') {

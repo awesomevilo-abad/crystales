@@ -301,24 +301,27 @@ class DocumentController extends Controller
      */
     public function archive(Request $request, $id)
     {
-        $specific_document = Document::find($id);
+        echo $request->id;
+        // $specific_document = Document::find($id);
 
-        if (!$specific_document) {
-            return [
-                'error_message' => 'Data Not Found',
-            ];
-        }
+        // $document_category_details = DB::table('document_categories')
+        //     ->where('document_id', '=', $id)
+        //     ->get();
 
-        $specific_document->is_active = 0;
-        $specific_document->save();
+        // print_r($document_category_details);
 
-        $specific_document_category_details = DB::table('document_categories')
-            ->where('document_id', '=', $id)
-            ->update(['is_active' => 0]);
+        // if (!$specific_document) {
+        //     return [
+        //         'error_message' => 'Data Not Found',
+        //     ];
+        // }
 
-        return [
-            'success_message' => 'Succesfully Archived!',
-        ];
+        // $specific_document->is_active = 0;
+        // $specific_document->save();
+
+        // return [
+        //     'success_message' => 'Succesfully Archived!',
+        // ];
 
     }
 

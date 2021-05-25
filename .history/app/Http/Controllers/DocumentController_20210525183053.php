@@ -303,6 +303,11 @@ class DocumentController extends Controller
     {
         $specific_document = Document::find($id);
 
+        $specific_document_category_details = DB::table('document_categories')
+            ->where('document_id', '=', $id)
+            ->get();
+
+
         if (!$specific_document) {
             return [
                 'error_message' => 'Data Not Found',
@@ -312,9 +317,8 @@ class DocumentController extends Controller
         $specific_document->is_active = 0;
         $specific_document->save();
 
-        $specific_document_category_details = DB::table('document_categories')
-            ->where('document_id', '=', $id)
-            ->update(['is_active' => 0]);
+        $specific_document_category_details->is_active = 0;
+        $specific_document_category_details->save();
 
         return [
             'success_message' => 'Succesfully Archived!',
