@@ -227,7 +227,7 @@ class UserController extends Controller
             , 'password' => 'required|string|confirmed'
             , 'is_active' => 'required',
         ]);
-
+        
         $specific_user = User::find($id);
 
         if (!$specific_user) {
@@ -410,7 +410,7 @@ class UserController extends Controller
         ]);
 
         // Check username
-        $user = User::where('username', $fields['username'])->where('is_active', 1)->first();
+        $user = User::where('username', $fields['username'])->first();
 
         // Check Password
         if (!$user || !Hash::check($fields['password'], $user->password)) {

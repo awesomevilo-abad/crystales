@@ -410,7 +410,7 @@ class UserController extends Controller
         ]);
 
         // Check username
-        $user = User::where('username', $fields['username'])->where('is_active', 1)->first();
+        $user = User::where('username', $fields['username'])->where()->first();
 
         // Check Password
         if (!$user || !Hash::check($fields['password'], $user->password)) {
