@@ -213,6 +213,10 @@ class UserController extends Controller
     {
         $specific_user = User::find($id);
 
+        if (User::where('id', '=', Input::get('email'))->exists()) {
+            // user found
+        }
+
         if (!$specific_user) {
             return [
                 'error_message' => 'Data Not Found',

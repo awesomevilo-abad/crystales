@@ -21,23 +21,14 @@ class UserController extends Controller
     {
         $is_active = $request->get('is_active');
 
-        if ($is_active == 'active') {
-            $users = DB::table('users')
-                ->where('is_active', '=', 1)
-                ->orderBy('id')
-                ->paginate(10);
+        if($is_active == 'active'){
 
-        } elseif ($is_active == 'inactive') {
-            $users = DB::table('users')
-                ->where('is_active', '=', 0)
-                ->orderBy('id')
-                ->paginate(10);
+        }else
 
-        } else {
-            $users = DB::table('users')
-                ->orderBy('id')
-                ->paginate(10);
-        }
+        $users = DB::table('users')
+            ->where('is_active', '=', 1)
+            ->orderBy('id')
+            ->paginate(10);
 
         if (!$users || $users->isEmpty()) {
             return [

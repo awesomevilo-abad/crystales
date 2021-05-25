@@ -19,33 +19,34 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $is_active = $request->get('is_active');
+        return Auth::user
+        // $is_active = $request->get('is_active');
 
-        if ($is_active == 'active') {
-            $users = DB::table('users')
-                ->where('is_active', '=', 1)
-                ->orderBy('id')
-                ->paginate(10);
+        // if ($is_active == 'active') {
+        //     $users = DB::table('users')
+        //         ->where('is_active', '=', 1)
+        //         ->orderBy('id')
+        //         ->paginate(10);
 
-        } elseif ($is_active == 'inactive') {
-            $users = DB::table('users')
-                ->where('is_active', '=', 0)
-                ->orderBy('id')
-                ->paginate(10);
+        // } elseif ($is_active == 'inactive') {
+        //     $users = DB::table('users')
+        //         ->where('is_active', '=', 0)
+        //         ->orderBy('id')
+        //         ->paginate(10);
 
-        } else {
-            $users = DB::table('users')
-                ->orderBy('id')
-                ->paginate(10);
-        }
+        // } else {
+        //     $users = DB::table('users')
+        //         ->orderBy('id')
+        //         ->paginate(10);
+        // }
 
-        if (!$users || $users->isEmpty()) {
-            return [
-                'error_message' => 'Data Not Found',
-            ];
-        }
+        // if (!$users || $users->isEmpty()) {
+        //     return [
+        //         'error_message' => 'Data Not Found',
+        //     ];
+        // }
 
-        return $users;
+        // return $users;
     }
 
     /**
@@ -213,55 +214,60 @@ class UserController extends Controller
     {
         $specific_user = User::find($id);
 
-        if (!$specific_user) {
-            return [
-                'error_message' => 'Data Not Found',
-            ];
-        }
+        return ($specific_user);
+        // if (User::where('id', '=', Input::get('email'))->exists()) {
+        //     // user found
+        // }
 
-        // ___________DOCUMENT CATEGORY TRANSFORMATION___________________
+        // if (!$specific_user) {
+        //     return [
+        //         'error_message' => 'Data Not Found',
+        //     ];
+        // }
 
-        $created_document_categories = [];
-        $document = [];
-        $document_types_transformed = [];
+        // // ___________DOCUMENT CATEGORY TRANSFORMATION___________________
 
-        $document_categories = $request['document_types'];
+        // $created_document_categories = [];
+        // $document = [];
+        // $document_types_transformed = [];
 
-        foreach ($document_categories as $specific_document_categories) {
-            $document_ids = array_unique(array_column($document_categories, "document_id"));
-        }
-        foreach ($document_ids as $specific_doc_id) {
-            $categories = [];
+        // $document_categories = $request['document_types'];
 
-            foreach ($document_categories as $doc_category_id) {
-                if ($specific_doc_id == $doc_category_id["document_id"]) {
-                    array_push($categories, $doc_category_id["category_id"]);
-                }
-            }
-            array_push($created_document_categories, array("document_id" => $specific_doc_id, "categories" => $categories));
-            $request['document_types'] = $created_document_categories;
-        }
+        // foreach ($document_categories as $specific_document_categories) {
+        //     $document_ids = array_unique(array_column($document_categories, "document_id"));
+        // }
+        // foreach ($document_ids as $specific_doc_id) {
+        //     $categories = [];
 
-        $specific_user->id_prefix = $request->get('id_prefix');
-        $specific_user->id_no = $request->get('id_no');
-        $specific_user->role = $request->get('role');
-        $specific_user->first_name = $request->get('first_name');
-        $specific_user->middle_name = $request->get('middle_name');
-        $specific_user->last_name = $request->get('last_name');
-        $specific_user->suffix = $request->get('suffix');
+        //     foreach ($document_categories as $doc_category_id) {
+        //         if ($specific_doc_id == $doc_category_id["document_id"]) {
+        //             array_push($categories, $doc_category_id["category_id"]);
+        //         }
+        //     }
+        //     array_push($created_document_categories, array("document_id" => $specific_doc_id, "categories" => $categories));
+        //     $request['document_types'] = $created_document_categories;
+        // }
 
-        $specific_user->department = $request->get('department');
-        $specific_user->position = $request->get('position');
-        $specific_user->permissions = $request->get('permissions');
-        $specific_user->document_types = $request->get('document_types');
-        $specific_user->username = $request->get('username');
-        $specific_user->password = $request->get('password');
-        $specific_user->is_active = $request->get('is_active');
-        $specific_user->save();
+        // $specific_user->id_prefix = $request->get('id_prefix');
+        // $specific_user->id_no = $request->get('id_no');
+        // $specific_user->role = $request->get('role');
+        // $specific_user->first_name = $request->get('first_name');
+        // $specific_user->middle_name = $request->get('middle_name');
+        // $specific_user->last_name = $request->get('last_name');
+        // $specific_user->suffix = $request->get('suffix');
 
-        return [
-            'success_message' => 'Succesfully Updated!',
-        ];
+        // $specific_user->department = $request->get('department');
+        // $specific_user->position = $request->get('position');
+        // $specific_user->permissions = $request->get('permissions');
+        // $specific_user->document_types = $request->get('document_types');
+        // $specific_user->username = $request->get('username');
+        // $specific_user->password = $request->get('password');
+        // $specific_user->is_active = $request->get('is_active');
+        // $specific_user->save();
+
+        // return [
+        //     'success_message' => 'Succesfully Updated!',
+        // ];
 
     }
 

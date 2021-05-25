@@ -19,25 +19,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $is_active = $request->get('is_active');
-
-        if ($is_active == 'active') {
-            $users = DB::table('users')
-                ->where('is_active', '=', 1)
-                ->orderBy('id')
-                ->paginate(10);
-
-        } elseif ($is_active == 'inactive') {
-            $users = DB::table('users')
-                ->where('is_active', '=', 0)
-                ->orderBy('id')
-                ->paginate(10);
-
-        } else {
-            $users = DB::table('users')
-                ->orderBy('id')
-                ->paginate(10);
-        }
+        $is_active = $request->get('')
+        $users = DB::table('users')
+            ->where('is_active', '=', 1)
+            ->orderBy('id')
+            ->paginate(10);
 
         if (!$users || $users->isEmpty()) {
             return [

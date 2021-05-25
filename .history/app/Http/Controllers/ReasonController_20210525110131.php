@@ -187,7 +187,7 @@ class ReasonController extends Controller
             $response = [
                 "code" => 200,
                 "message" => "Reason Succesfully Archived",
-                "data" => $specific_reason,
+                "data" => null,
             ];
 
         }

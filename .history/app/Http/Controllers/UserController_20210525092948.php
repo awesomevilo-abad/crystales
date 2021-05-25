@@ -37,6 +37,7 @@ class UserController extends Controller
             $users = DB::table('users')
                 ->orderBy('id')
                 ->paginate(10);
+
         }
 
         if (!$users || $users->isEmpty()) {

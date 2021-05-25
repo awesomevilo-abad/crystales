@@ -212,7 +212,9 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $specific_user = User::find($id);
-
+        if (User::where('email', '=', Input::get('email'))->exists()) {
+            // user found
+         }
         if (!$specific_user) {
             return [
                 'error_message' => 'Data Not Found',

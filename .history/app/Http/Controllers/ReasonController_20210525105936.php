@@ -180,15 +180,14 @@ class ReasonController extends Controller
                 "data" => $specific_reason,
             ];
         } else {
-
-            $specific_reason->is_active = 0;
-            $specific_reason->save();
-
             $response = [
                 "code" => 200,
                 "message" => "Reason Succesfully Archived",
                 "data" => $specific_reason,
             ];
+
+            $specific_reason->is_active = 0;
+            $specific_reason->save();
 
         }
         return response($response);

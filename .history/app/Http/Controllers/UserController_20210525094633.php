@@ -213,6 +213,8 @@ class UserController extends Controller
     {
         $specific_user = User::find($id);
 
+        if($specific_user)
+
         if (!$specific_user) {
             return [
                 'error_message' => 'Data Not Found',

@@ -183,7 +183,6 @@ class ReasonController extends Controller
 
             $specific_reason->is_active = 0;
             $specific_reason->save();
-
             $response = [
                 "code" => 200,
                 "message" => "Reason Succesfully Archived",
