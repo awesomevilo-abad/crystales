@@ -338,7 +338,7 @@ class DocumentController extends Controller
         }
 
         return [
-            'success_message' => 'Succesfully Archived! & User`s Masterlist was modified',
+            'success_message' => 'Succesfully Archived!',
         ];
 
     }

@@ -323,23 +323,32 @@ class DocumentController extends Controller
             $document_types = json_decode($specific_user->document_types);
 
             foreach ($document_types as $key => $value) {
-                if ($document_types[$key]->document_id == $id) {
-                    unset($document_types[$key]);
-                }
+                $document_types[$key]->document_id;
+
+                print_r($document_types[$key]);
+                // $categories_per_doc_id = $document_types[$key]->categories;
+                // $untag_id_position = array_search($id, $categories_per_doc_id);
+
+                // unset($categories_per_doc_id[$untag_id_position]);
+
+                // $document_types[$key]->categories = $categories_per_doc_id;
+
+                // $document_types[$key]->categories = array_values($document_types[$key]->categories);
 
             }
+            // $specific_user->document_types = json_encode($document_types);
+            // $document_types;
+            // // $specific_user->save();
 
-            $document_types = json_encode(array_values($document_types));
-
-            $updated_user = DB::table('users')
-                ->where('id', '=', $specific_user->id)
-                ->update(['document_types' => $document_types]);
+            // $updated_user = DB::table('users')
+            //     ->where('id', '=', $specific_user->id)
+            //     ->update(['document_types' => $document_types]);
 
         }
 
-        return [
-            'success_message' => 'Succesfully Archived! & User`s Masterlist was modified',
-        ];
+        // return [
+        //     'success_message' => 'Succesfully Archived!',
+        // ];
 
     }
 

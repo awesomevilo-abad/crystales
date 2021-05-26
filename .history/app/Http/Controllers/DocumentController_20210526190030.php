@@ -316,29 +316,11 @@ class DocumentController extends Controller
             ->where('document_id', '=', $id)
             ->update(['is_active' => 0]);
 
-        $users = DB::table('users')->latest()->get();
 
-        foreach ($users as $specific_user) {
 
-            $document_types = json_decode($specific_user->document_types);
-
-            foreach ($document_types as $key => $value) {
-                if ($document_types[$key]->document_id == $id) {
-                    unset($document_types[$key]);
-                }
-
-            }
-
-            $document_types = json_encode(array_values($document_types));
-
-            $updated_user = DB::table('users')
-                ->where('id', '=', $specific_user->id)
-                ->update(['document_types' => $document_types]);
-
-        }
-
+            
         return [
-            'success_message' => 'Succesfully Archived! & User`s Masterlist was modified',
+            'success_message' => 'Succesfully Archived!',
         ];
 
     }

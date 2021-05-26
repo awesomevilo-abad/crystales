@@ -301,16 +301,16 @@ class DocumentController extends Controller
      */
     public function archive(Request $request, $id)
     {
-        $specific_document = Document::find($id);
+        // $specific_document = Document::find($id);
 
-        if (!$specific_document) {
-            return [
-                'error_message' => 'Data Not Found',
-            ];
-        }
+        // if (!$specific_document) {
+        //     return [
+        //         'error_message' => 'Data Not Found',
+        //     ];
+        // }
 
-        $specific_document->is_active = 0;
-        $specific_document->save();
+        // $specific_document->is_active = 0;
+        // $specific_document->save();
 
         $specific_document_category_details = DB::table('document_categories')
             ->where('document_id', '=', $id)
@@ -330,16 +330,17 @@ class DocumentController extends Controller
             }
 
             $document_types = json_encode(array_values($document_types));
+            // // $specific_user->save();
 
-            $updated_user = DB::table('users')
-                ->where('id', '=', $specific_user->id)
-                ->update(['document_types' => $document_types]);
+            // $updated_user = DB::table('users')
+            //     ->where('id', '=', $specific_user->id)
+            //     ->update(['document_types' => $document_types]);
 
         }
 
-        return [
-            'success_message' => 'Succesfully Archived! & User`s Masterlist was modified',
-        ];
+        // return [
+        //     'success_message' => 'Succesfully Archived!',
+        // ];
 
     }
 
