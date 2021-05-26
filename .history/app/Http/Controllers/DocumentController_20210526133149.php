@@ -183,15 +183,15 @@ class DocumentController extends Controller
             ->select('c.id AS categories')
             ->join('document_categories AS dc', 'd.id', '=', 'dc.document_id')
             ->join('categories AS c', 'dc.category_id', '=', 'c.id')
-        // ->where('d.is_active', '=', 1)
+            ->where('d.is_active', '=', 1)
             ->where('d.id', '=', $id)
             ->get();
 
-        if ($result->isEmpty()) {
-            return [
-                'error_message' => 'Data Not Found',
-            ];
-        }
+        // if ($result->isEmpty()) {
+        //     return [
+        //         'error_message' => 'Data Not Found',
+        //     ];
+        // }
 
         $category_ids->push(['doc_id' => $id, 'cat_id' => $result->pluck('categories')]);
 
@@ -203,7 +203,7 @@ class DocumentController extends Controller
 
             $document_details = DB::table('documents AS d')
                 ->select('id', 'document_type', 'document_description', 'is_active')
-            // ->where('is_active', '=', 1)
+                ->where('is_active', '=', 1)
                 ->where('id', '=', $doc_id)
                 ->get();
 
