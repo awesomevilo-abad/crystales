@@ -14,7 +14,7 @@ class AddIsActiveToDocumentCategoriesTable extends Migration
     public function up()
     {
         Schema::table('document_categories', function (Blueprint $table) {
-            $table->boolean('is_active')->default('1')->after('category_id');
+            $table->boolean('is_active');
             //
         });
     }
