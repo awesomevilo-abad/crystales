@@ -189,12 +189,6 @@ class CategoryController extends Controller
         $specific_category->is_active = 0;
         $specific_category->save();
 
-        // UPDATE DOCUMENT CATEGORY
-        $updated_user = DB::table('document_categories')
-            ->where('category_id', '=', $id)
-            ->update(['is_active' => 0]);
-
-        // UPDATE USERS
         $users = DB::table('users')->latest()->get();
 
         foreach ($users as $specific_user) {

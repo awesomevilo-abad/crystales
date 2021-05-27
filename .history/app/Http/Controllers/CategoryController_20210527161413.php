@@ -177,7 +177,6 @@ class CategoryController extends Controller
      */
     public function archive(Request $request, $id)
     {
-        // UPDATE CATEGORY
         $specific_category = Category::find($id);
 
         if (!$specific_category) {
@@ -189,12 +188,6 @@ class CategoryController extends Controller
         $specific_category->is_active = 0;
         $specific_category->save();
 
-        // UPDATE DOCUMENT CATEGORY
-        $updated_user = DB::table('document_categories')
-            ->where('category_id', '=', $id)
-            ->update(['is_active' => 0]);
-
-        // UPDATE USERS
         $users = DB::table('users')->latest()->get();
 
         foreach ($users as $specific_user) {
@@ -219,6 +212,10 @@ class CategoryController extends Controller
             // $specific_user->save();
 
             $updated_user = DB::table('users')
+                ->where('id', '=', $specific_user->id)
+                ->update(['document_types' => $document_types]);
+
+            $document_details = DB::table('documents')
                 ->where('id', '=', $specific_user->id)
                 ->update(['document_types' => $document_types]);
 

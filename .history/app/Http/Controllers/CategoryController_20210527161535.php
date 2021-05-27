@@ -177,7 +177,6 @@ class CategoryController extends Controller
      */
     public function archive(Request $request, $id)
     {
-        // UPDATE CATEGORY
         $specific_category = Category::find($id);
 
         if (!$specific_category) {
@@ -189,12 +188,6 @@ class CategoryController extends Controller
         $specific_category->is_active = 0;
         $specific_category->save();
 
-        // UPDATE DOCUMENT CATEGORY
-        $updated_user = DB::table('document_categories')
-            ->where('category_id', '=', $id)
-            ->update(['is_active' => 0]);
-
-        // UPDATE USERS
         $users = DB::table('users')->latest()->get();
 
         foreach ($users as $specific_user) {
@@ -202,25 +195,26 @@ class CategoryController extends Controller
             $document_types = json_decode($specific_user->document_types);
 
             foreach ($document_types as $key => $value) {
-                $document_types[$key]->categories;
-                $categories_per_doc_id = $document_types[$key]->categories;
-                $untag_id_position = array_search($id, $categories_per_doc_id);
+                // $document_types[$key]->categories;
+                // $categories_per_doc_id = $document_types[$key]->categories;
+                // $untag_id_position = array_search($id, $categories_per_doc_id);
 
-                unset($categories_per_doc_id[$untag_id_position]);
+                // unset($categories_per_doc_id[$untag_id_position]);
 
-                $document_types[$key]->categories = $categories_per_doc_id;
+                // $document_types[$key]->categories = $categories_per_doc_id;
 
-                $document_types[$key]->categories = array_values($document_types[$key]->categories);
+                // $document_types[$key]->categories = array_values($document_types[$key]->categories);
 
-                // $document_types[$key]->categories->save();
-            }
-            $specific_user->document_types = json_encode($document_types);
-            $document_types;
-            // $specific_user->save();
 
-            $updated_user = DB::table('users')
+                $document_details = DB::table('documents')
                 ->where('id', '=', $specific_user->id)
-                ->update(['document_types' => $document_types]);
+            }
+            // $specific_user->document_types = json_encode($document_types);
+            // $document_types;
+
+            // $updated_user = DB::table('users')
+            //     ->where('id', '=', $specific_user->id)
+            //     ->update(['document_types' => $document_types]);
 
         }
         return [

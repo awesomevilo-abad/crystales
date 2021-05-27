@@ -53,7 +53,7 @@ class DocumentController extends Controller
                 ->join('document_categories AS dc', 'd.id', '=', 'dc.document_id')
                 ->join('categories AS c', 'dc.category_id', '=', 'c.id')
                 ->where('d.id', '=', $doc_id)
-                ->where('dc.is_active', '=', 1)
+                ->where('dc.is_active', '=', $doc_id)
                 ->get();
             $category_ids->push(['doc_id' => $doc_id, 'cat_id' => $result->pluck('categories')]);
 

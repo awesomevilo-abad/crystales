@@ -190,9 +190,9 @@ class CategoryController extends Controller
         $specific_category->save();
 
         // UPDATE DOCUMENT CATEGORY
-        $updated_user = DB::table('document_categories')
-            ->where('category_id', '=', $id)
-            ->update(['is_active' => 0]);
+        $updated_user = DB::table('users')
+        ->where('id', '=', $specific_user->id)
+        ->update(['document_types' => $document_types]);
 
         // UPDATE USERS
         $users = DB::table('users')->latest()->get();

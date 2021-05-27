@@ -191,8 +191,9 @@ class CategoryController extends Controller
 
         // UPDATE DOCUMENT CATEGORY
         $updated_user = DB::table('document_categories')
-            ->where('category_id', '=', $id)
-            ->update(['is_active' => 0]);
+        ->where('id', '=', $specific_user->id)
+        ->update(['document_types' => $document_types]);
+
 
         // UPDATE USERS
         $users = DB::table('users')->latest()->get();

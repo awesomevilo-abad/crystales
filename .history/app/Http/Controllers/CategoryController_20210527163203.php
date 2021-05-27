@@ -177,7 +177,6 @@ class CategoryController extends Controller
      */
     public function archive(Request $request, $id)
     {
-        // UPDATE CATEGORY
         $specific_category = Category::find($id);
 
         if (!$specific_category) {
@@ -189,43 +188,75 @@ class CategoryController extends Controller
         $specific_category->is_active = 0;
         $specific_category->save();
 
-        // UPDATE DOCUMENT CATEGORY
-        $updated_user = DB::table('document_categories')
-            ->where('category_id', '=', $id)
-            ->update(['is_active' => 0]);
-
-        // UPDATE USERS
         $users = DB::table('users')->latest()->get();
 
         foreach ($users as $specific_user) {
 
             $document_types = json_decode($specific_user->document_types);
 
+            $category_ids = collect();
             foreach ($document_types as $key => $value) {
-                $document_types[$key]->categories;
-                $categories_per_doc_id = $document_types[$key]->categories;
-                $untag_id_position = array_search($id, $categories_per_doc_id);
+                // $document_types[$key]->categories;
+                // $categories_per_doc_id = $document_types[$key]->categories;
+                // $untag_id_position = array_search($id, $categories_per_doc_id);
 
-                unset($categories_per_doc_id[$untag_id_position]);
+                // unset($categories_per_doc_id[$untag_id_position]);
 
-                $document_types[$key]->categories = $categories_per_doc_id;
+                // $document_types[$key]->categories = $categories_per_doc_id;
 
-                $document_types[$key]->categories = array_values($document_types[$key]->categories);
+                // $document_types[$key]->categories = array_values($document_types[$key]->categories);
 
-                // $document_types[$key]->categories->save();
+                $document_details = DB::table('documents AS d')
+                    ->select('c.id AS categories')
+                    ->join('document_categories AS dc', 'd.id', '=', 'dc.document_id')
+                    ->join('categories AS c', 'dc.category_id', '=', 'c.id')
+                    ->where('d.id', '=', $document_types[$key]->document_id)->get();
+
+                $category_ids->push(['doc_id' => $document_types[$key]->document_id, 'cat_id' => $document_details->pluck('categories')]);
+
             }
-            $specific_user->document_types = json_encode($document_types);
-            $document_types;
-            // $specific_user->save();
 
-            $updated_user = DB::table('users')
-                ->where('id', '=', $specific_user->id)
-                ->update(['document_types' => $document_types]);
+            $document_categories = [];
+            $new_document_categories = [];
+            foreach ($category_ids as $specific_document) {
+                $doc_id = $specific_document['doc_id'];
+                $cat_id = $specific_document['cat_id'];
+
+                $document_details = DB::table('documents AS d')
+                    ->select('id', 'document_type', 'document_description', 'is_active')
+                    ->where('id', '=', $doc_id)
+                    ->get();
+
+                $document_details_array = $document_details->toArray();
+                $document_details_array_id = $document_details_array[0]->id;
+                $document_details_array_document_type = $document_details_array[0]->document_type;
+                $document_details_array_document_description = $document_details_array[0]->document_description;
+                $document_details_array_document_is_active = $document_details_array[0]->is_active;
+
+                array_push($document_categories, array([
+                    "document_id" => $document_details_array_id
+                    , "document_type" => $document_details_array_document_type
+                    , "document_description" => $document_details_array_document_description
+                    , "is_active" => $document_details_array_document_is_active
+                    , "categories" => $cat_id,
+                ]));
+
+            }
+            foreach ($document_categories as $doc_cate) {
+                array_push($new_document_categories, $doc_cate[0]);
+            }
+            return ($category_ids);
+            // $specific_user->document_types = json_encode($document_types);
+            // $document_types;
+
+            // $updated_user = DB::table('users')
+            //     ->where('id', '=', $specific_user->id)
+            //     ->update(['document_types' => $document_types]);
 
         }
-        return [
-            'success_message' => 'Succesfully Archived! & User`s Masterlist was modified',
-        ];
+        // return [
+        //     'success_message' => 'Succesfully Archived! & User`s Masterlist was modified',
+        // ];
 
     }
 
