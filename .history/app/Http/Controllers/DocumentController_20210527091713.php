@@ -182,7 +182,7 @@ class DocumentController extends Controller
         $result = DB::table('documents AS d')
             ->select('c.id AS categories')
             ->leftJoin('document_categories AS dc', 'd.id', '=', 'dc.document_id')
-            ->leftJoin('categories AS c', 'dc.category_id', '=', 'c.id')
+            ->join('categories AS c', 'dc.category_id', '=', 'c.id')
         // ->where('d.is_active', '=', 1)
             ->where('d.id', '=', $id)
             ->get();
