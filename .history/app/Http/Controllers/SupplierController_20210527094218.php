@@ -242,7 +242,7 @@ class SupplierController extends Controller
             $sup_id = $specific_referrence['sup_id'];
 
             $supplier_details = DB::table('suppliers as s')
-                ->select('s.id', 's.is_active', 's.supplier_name', 's.supplier_code', 's.terms', 'st.type', 'st.transaction_days', 'st.id as stid')
+                ->select('s.id', 's.is_active', 's.supplier_name', 's.supplier_code', 's.terms', 'st.type', 'st.transaction_days','st.id as stid')
                 ->leftJoin('supplier_types as st', 's.supplier_type_id', '=', 'st.id')
                 ->where('s.id', $sup_id)
                 ->get();
@@ -514,7 +514,7 @@ class SupplierController extends Controller
 
     }
 
-    public function all(Request $request)
+    public function index(Request $request)
     {
 
         $is_active = $request->get('is_active');

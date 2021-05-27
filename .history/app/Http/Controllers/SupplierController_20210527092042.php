@@ -59,7 +59,7 @@ class SupplierController extends Controller
             $sup_id = $specific_referrence['sup_id'];
 
             $supplier_details = DB::table('suppliers as s')
-                ->select('s.id', 's.is_active', 's.supplier_name', 's.supplier_code', 's.terms', 'st.type', 'st.transaction_days', 'st.id as stid')
+                ->select('s.id', 's.is_active', 's.supplier_name', 's.supplier_code', 's.terms', 'st.type', 'st.transaction_days', 'st.id')
                 ->leftJoin('supplier_types as st', 's.supplier_type_id', '=', 'st.id')
                 ->where('s.id', $sup_id)
                 ->get();
@@ -73,8 +73,8 @@ class SupplierController extends Controller
                     'supplier_code' => $sd->supplier_code,
                     'terms' => $sd->terms,
                     'type' => $sd->type,
+                    'supplier_type_id' => $sd->type,
                     'transaction_days' => $sd->transaction_days,
-                    'supplier_type_id' => $sd->stid,
                     'referrences' => $specific_referrence['referrences'],
 
                 ]);
@@ -242,7 +242,7 @@ class SupplierController extends Controller
             $sup_id = $specific_referrence['sup_id'];
 
             $supplier_details = DB::table('suppliers as s')
-                ->select('s.id', 's.is_active', 's.supplier_name', 's.supplier_code', 's.terms', 'st.type', 'st.transaction_days', 'st.id as stid')
+                ->select('s.id', 's.is_active', 's.supplier_name', 's.supplier_code', 's.terms', 'st.type', 'st.transaction_days')
                 ->leftJoin('supplier_types as st', 's.supplier_type_id', '=', 'st.id')
                 ->where('s.id', $sup_id)
                 ->get();
@@ -255,7 +255,6 @@ class SupplierController extends Controller
                     'supplier_name' => $sd->supplier_name,
                     'supplier_code' => $sd->supplier_code,
                     'terms' => $sd->terms,
-                    'supplier_type_id' => $sd->stid,
                     'type' => $sd->type,
                     'transaction_days' => $sd->transaction_days,
                     'referrences' => $specific_referrence['referrences'],
@@ -512,93 +511,5 @@ class SupplierController extends Controller
 
         return response($response);
 
-    }
-
-    public function all(Request $request)
-    {
-
-        $is_active = $request->get('is_active');
-
-        if ($is_active == 'active') {
-            $suppliers = DB::table('suppliers')
-                ->where('is_active', '=', 1)
-                ->groupBy('id')
-                ->latest()
-                ->get('id');
-
-        } elseif ($is_active == 'inactive') {
-            $suppliers = DB::table('suppliers')
-                ->where('is_active', '=', 0)
-                ->groupBy('id')
-                ->latest()
-                ->get('id');
-
-        } else {
-            $suppliers = DB::table('suppliers')
-                ->groupBy('id')
-                ->latest()
-                ->get('id');
-        }
-
-        $supplier_ids = $suppliers->pluck('id');
-
-        $referrence_ids = collect();
-        foreach ($supplier_ids as $sup_id) {
-            $result = DB::table('suppliers as s')
-                ->select('r.id as referrences')
-                ->leftJoin('supplier_referrences AS sr', 's.id', '=', 'sr.supplier_id')
-                ->leftJoin('referrences AS r', 'sr.referrence_id', '=', 'r.id')
-                ->where('s.id', '=', $sup_id)
-                ->get();
-
-            $referrence_ids->push(['sup_id' => $sup_id,
-                'referrences' => $result->pluck('referrences')]);
-        }
-
-        $final_supplier_details = collect();
-        foreach ($referrence_ids as $specific_referrence) {
-            $sup_id = $specific_referrence['sup_id'];
-
-            $supplier_details = DB::table('suppliers as s')
-                ->select('s.id', 's.is_active', 's.supplier_name', 's.supplier_code', 's.terms', 'st.type', 'st.transaction_days', 'st.id as stid')
-                ->leftJoin('supplier_types as st', 's.supplier_type_id', '=', 'st.id')
-                ->where('s.id', $sup_id)
-                ->get();
-
-            foreach ($supplier_details as $sd) {
-
-                $final_supplier_details->push([
-                    'id' => $sd->id,
-                    'is_active' => $sd->is_active,
-                    'supplier_name' => $sd->supplier_name,
-                    'supplier_code' => $sd->supplier_code,
-                    'terms' => $sd->terms,
-                    'type' => $sd->type,
-                    'transaction_days' => $sd->transaction_days,
-                    'supplier_type_id' => $sd->stid,
-                    'referrences' => $specific_referrence['referrences'],
-
-                ]);
-            }
-        }
-        // return $final_supplier_details;
-
-        if (!$final_supplier_details || $final_supplier_details->isEmpty()) {
-            $response = [
-                "code" => 404,
-                "message" => "Data Not Found!",
-                "data" => $final_supplier_details,
-            ];
-
-        } else {
-            $response = [
-                "code" => 200,
-                "message" => "Succefully Retrieved",
-                "data" => $final_supplier_details,
-            ];
-
-        }
-
-        return response($response);
     }
 }
