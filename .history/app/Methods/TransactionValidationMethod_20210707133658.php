@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Methods;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+
+class GenericMethod
+ {
+     public static function(){
+         
+     }
+ }
