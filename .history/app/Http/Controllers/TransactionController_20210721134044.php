@@ -83,10 +83,9 @@ class TransactionController extends Controller
 
             $result->push(
                 [
-                'id'=>$transaction->id,
                 'date_requested'=>$date_requested,
                 'transaction_id'=>$transaction->transaction_id,
-                'tag_id'=>$transaction->tag_id,
+                'tag_id'=>$transaction->tag_,
                 'document_id'=>$transaction->document_id,
                 'document_type'=>$transaction->document_type,
                 'category_id'=>$transaction->category_id,
