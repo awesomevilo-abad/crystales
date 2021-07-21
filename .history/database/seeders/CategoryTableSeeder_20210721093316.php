@@ -17,7 +17,7 @@ class CategoryTableSeeder extends Seeder
         // Category::factory()->times(100)->create();
         if(DB::table('users')->count() == 0){
 
-            DB::table('categories')->insert([
+            DB::table('users')->insert([
                 [
                     "name" => "rentals",
                     "is_active" => 1
