@@ -673,7 +673,7 @@ class TransactionValidationMethod
                     ];
 
                 }
-            }else if($fields['payment_type'] == 'partial'){
+            }else if($fields['payment_type'] == 'PARTIAL'){
                 $po = $fields['po_group'];
                 $referrence_group = $fields['referrence_group'];
 
