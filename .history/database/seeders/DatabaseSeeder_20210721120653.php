@@ -14,5 +14,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // User::factory(10)->create();
+        $this->call(BankTableSeeder::class);
+        $this->call(BankTableSeeder::class);
+        $this->call(BankTableSeeder::class);
+        $this->call(BankTableSeeder::class);
+        $this->call(BankTableSeeder::class);
+        $this->call(BankTableSeeder::class);
     }
 }
