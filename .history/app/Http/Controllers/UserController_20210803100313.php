@@ -452,15 +452,23 @@ class UserController extends Controller
         // return response($response, 200)->withCookie($cookie);
 
     }
+    public function logout(){
+        $cookie = Cookie::forget('sanctum');
 
-    public function logout(Request $request)
-    {
-        auth()->user()->tokens()->delete();
-
-        return [
-            'message' => 'Logged out',
-        ];
+        return response([
+            'message' => 'success'
+        ])->withCookie($cookie);
     }
+
+
+    // public function logout(Request $request)
+    // {
+    //     auth()->user()->tokens()->delete();
+
+    //     return [
+    //         'message' => 'Logged out',
+    //     ];
+    // }
 
     public function username_validation(Request $request)
     {

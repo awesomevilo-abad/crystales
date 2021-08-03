@@ -408,48 +408,30 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        if(Auth::attempt($request->only('username', 'password'))){
-            $user = Auth::user();
-            $user= User::where('username', $request->username)->first();
-            $token = $user->createToken('myapptoken')->plainTextToken;
-            $response = [
-                // 'user' => $user,
-                'token' => $token,
-            ];
+        $fields = $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ]);
 
-            $cookie = \cookie('sanctum', $token, 3600);
+        // Check username
+        $user = User::where('username', $fields['username'])->where('is_active', 1)->first();
 
-            return \response($response, 201)->withCookie($cookie);
+        // Check Password
+        if (!$user || !Hash::check($fields['password'], $user->password)) {
+            return response([
+                'message' => 'Invalid Username or Password',
+            ], 401);
         }
-        return response ([
-            'error' => 'Invalid Credentials',
-        ], Response::HTTP_UNAUTHORIZED);
 
+        $token = $user->createToken('myapptoken')->plainTextToken; //Get Token
+        $response = [
+            'user_id' => $user->id,
+            'token' => $token,
+        ];
 
-        // $fields = $request->validate([
-        //     'username' => 'required|string',
-        //     'password' => 'required|string',
-        // ]);
+        $cookie = \cookie('sanctum', $token, 3600);
 
-        // // Check username
-        // $user = User::where('username', $fields['username'])->where('is_active', 1)->first();
-
-        // // Check Password
-        // if (!$user || !Hash::check($fields['password'], $user->password)) {
-        //     return response([
-        //         'message' => 'Invalid Username or Password',
-        //     ], 401);
-        // }
-
-        // $token = $user->createToken('myapptoken')->plainTextToken; //Get Token
-        // $response = [
-        //     'user_id' => $user->id,
-        //     'token' => $token,
-        // ];
-
-        // $cookie = \cookie('sanctum', $token, 3600);
-
-        // return response($response, 200)->withCookie($cookie);
+        return response($response, 200)->withCookie($cookie);
 
     }
 
