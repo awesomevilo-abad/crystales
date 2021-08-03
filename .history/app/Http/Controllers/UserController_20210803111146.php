@@ -426,30 +426,30 @@ class UserController extends Controller
         // ], Response::HTTP_UNAUTHORIZED);
 
 
-        $fields = $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
-        ]);
+        // $fields = $request->validate([
+        //     'username' => 'required|string',
+        //     'password' => 'required|string',
+        // ]);
 
-        // Check username
-        $user = User::where('username', $fields['username'])->where('is_active', 1)->first();
+        // // Check username
+        // $user = User::where('username', $fields['username'])->where('is_active', 1)->first();
 
-        // Check Password
-        if (!$user || !Hash::check($fields['password'], $user->password)) {
-            return response([
-                'message' => 'Invalid Username or Password',
-            ], 401);
-        }
+        // // Check Password
+        // if (!$user || !Hash::check($fields['password'], $user->password)) {
+        //     return response([
+        //         'message' => 'Invalid Username or Password',
+        //     ], 401);
+        // }
 
-        $token = $user->createToken('myapptoken')->plainTextToken; //Get Token
-        $response = [
-            'user_id' => $user->id,
-            'token' => $token,
-        ];
+        // $token = $user->createToken('myapptoken')->plainTextToken; //Get Token
+        // $response = [
+        //     'user_id' => $user->id,
+        //     'token' => $token,
+        // ];
 
-        $cookie = \cookie('sanctum', $token, 3600);
+        // $cookie = \cookie('sanctum', $token, 3600);
 
-        return response($response, 200)->withCookie($cookie);
+        // return response($response, 200)->withCookie($cookie);
 
     }
 

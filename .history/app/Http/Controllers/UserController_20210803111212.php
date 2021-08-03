@@ -447,7 +447,7 @@ class UserController extends Controller
             'token' => $token,
         ];
 
-        $cookie = \cookie('sanctum', $token, 3600);
+        $cookie = cookie('sanctum', $token, 3600);
 
         return response($response, 200)->withCookie($cookie);
 
