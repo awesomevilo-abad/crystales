@@ -37,8 +37,6 @@ Route::post('users/search/', [UserController::class, 'search']);
 Route::post('users/change-password/{id}', [UserController::class, 'change_password']);
 Route::post('/logout', [UserController::class, 'logout']);
 
-// Protected Routes
-Route::group(['middleware' => ['auth:sanctum']], function () {
 // CATEGORY
 Route::get('categories/all/', [CategoryController::class, 'categories']);
 Route::resource('categories', CategoryController::class);
@@ -90,7 +88,4 @@ Route::get('transactions/status_group/',[TransactionController::class,'status_gr
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::middleware('auth:sanctum')->get('/authenticated', function () {
-    return true;
-
 });
