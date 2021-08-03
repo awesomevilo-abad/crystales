@@ -452,14 +452,6 @@ class UserController extends Controller
         // return response($response, 200)->withCookie($cookie);
 
     }
-    public function logout(){
-        $cookie = Cookie::forget('sanctum');
-
-        return response([
-            'message' => 'success'
-        ])->withCookie($cookie);
-    }
-
 
     // public function logout(Request $request)
     // {
