@@ -419,7 +419,7 @@ class UserController extends Controller
 
             $cookie = cookie('sanctum', $token, 3600);
 
-            return response($response, 201)->withCookie($cookie);
+            return \response($response, 201)->withCookie($cookie);
         }
         return response ([
             'error' => 'Invalid Credentials',
