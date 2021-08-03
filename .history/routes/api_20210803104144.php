@@ -29,6 +29,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/authenticated', function () {
     return true;
 });
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
 Route::post('/login', [UserController::class, 'login']);
 // Protected Routes
@@ -91,9 +94,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('transactions/', TransactionController::class);
     Route::get('transactions/status_group/',[TransactionController::class,'status_group']);
 
-    Route::middleware('auth:api')->get('/user', function (Request $request) {
-        return $request->user();
-    });
+
 
 
 });

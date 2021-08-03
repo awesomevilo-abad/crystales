@@ -25,12 +25,11 @@ use Illuminate\Support\Facades\Route;
  */
 
 //  Public Routes
+Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware('auth:sanctum')->get('/authenticated', function () {
     return true;
 });
-
-Route::post('/login', [UserController::class, 'login']);
 // Protected Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
     //
