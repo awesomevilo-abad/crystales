@@ -90,4 +90,7 @@ Route::get('transactions/status_group/',[TransactionController::class,'status_gr
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::middleware('auth:sanctum')->get('/authenticated', function () {
+    return true;
+
 });

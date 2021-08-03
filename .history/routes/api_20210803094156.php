@@ -27,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 //  Public Routes
 Route::post('/login', [UserController::class, 'login']);
 
+// Protected Routes
+Route::group(['middleware' => ['auth:sanctum']], function () {
 //
 // USER
 Route::get('users/username-validation', [UserController::class, 'username_validation']);
@@ -37,8 +39,6 @@ Route::post('users/search/', [UserController::class, 'search']);
 Route::post('users/change-password/{id}', [UserController::class, 'change_password']);
 Route::post('/logout', [UserController::class, 'logout']);
 
-// Protected Routes
-Route::group(['middleware' => ['auth:sanctum']], function () {
 // CATEGORY
 Route::get('categories/all/', [CategoryController::class, 'categories']);
 Route::resource('categories', CategoryController::class);

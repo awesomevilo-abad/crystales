@@ -37,8 +37,6 @@ Route::post('users/search/', [UserController::class, 'search']);
 Route::post('users/change-password/{id}', [UserController::class, 'change_password']);
 Route::post('/logout', [UserController::class, 'logout']);
 
-// Protected Routes
-Route::group(['middleware' => ['auth:sanctum']], function () {
 // CATEGORY
 Route::get('categories/all/', [CategoryController::class, 'categories']);
 Route::resource('categories', CategoryController::class);
